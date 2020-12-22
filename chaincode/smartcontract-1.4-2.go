@@ -20,10 +20,6 @@ import (
 //chaincode_example05 show's how chaincode ID can be passed in as a parameter instead of
 //hard-coding.
 
-// "fmt"
-
-// "github.com/hyperledger/fabric/core/chaincode/shim"
-// pb "github.com/hyperledger/fabric/protos/peer"
 
 type ACertInfo struct {
 	Token string `json:"Token"`
@@ -45,22 +41,8 @@ func zkp(xval, yval int) bool {
 
 	// var err error
 	str := "func exp3(private a):LF\tb = a * aLF\tc = a * bLF\treturn cLFLFfunc main(private s0, public s1):LF\ts3 = exp3(s0)LF\ts4 = s3 + s0LF\ts5 = s4 + 5LF\tequals(s1, s5)LF\tout = 1 * 1"
-	// ACert := ACertInfo{}
-	// ACert.Token = args[0]
-
-	// Tvalbytes, err := stub.GetState(ACert.Token)
-	// if err != nil {
-	// 	jsonResp := "{\"Error\":\"Failed to get state for " + ACert.Token + "\"}"
-	// 	return shim.Error(jsonResp)
-	// }
-
-	// err = json.Unmarshal(Tvalbytes, &ACert)
-
-	// y, _ := strconv.Atoi(string(Tvalbytes))
-
 	x := xval
 	y := yval
-	// y, err := stub.GetState(args[0])
 
 	argCount := len(os.Args[1:])
 
