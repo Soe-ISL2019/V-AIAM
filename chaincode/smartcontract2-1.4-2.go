@@ -18,11 +18,6 @@ import (
 //chaincode_example05 show's how chaincode ID can be passed in as a parameter instead of
 //hard-coding.
 
-// "fmt"
-
-// "github.com/hyperledger/fabric/core/chaincode/shim"
-// pb "github.com/hyperledger/fabric/protos/peer"
-
 type PkInfo struct {
 	Val_q string `json:"q"`
 	Val_X string `json:"X"`
