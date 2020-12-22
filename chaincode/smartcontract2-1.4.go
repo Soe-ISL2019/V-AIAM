@@ -241,6 +241,22 @@ func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface, args []string)
 	return shim.Success(qvalbytes)
 }
 
+func (t *SimpleChaincode) verify(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+
+	var err error
+	Pk := PkInfo{}
+	Pk.Val_q = args[0]
+	Tx := TxInfo{}
+
+	qvalbytes, err := stub.GetState(Pk.Val_q)
+	if err != nil {
+		jsonResp := "{\"Error\":\"Failed to get state for " + Pk.Val_q + "\"}"
+		return shim.Error(jsonResp)
+	}
+
+	Pk, CL := cl_sig(args[1])
+}
+
 func main() {
 	err := shim.Start(new(SimpleChaincode))
 	if err != nil {
