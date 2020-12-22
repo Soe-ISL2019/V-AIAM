@@ -63,18 +63,11 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	jsonResp = "{\"Init_chid\":\"" + ACert.ChID + "\"}"
 	fmt.Printf("Query Response:%s\n", jsonResp)
 
-	// chid := stub.GetChannelID()
-	// fmt.Printf("Query Response1:%s\n", chid)
 	timestamp, _ := stub.GetTxTimestamp()
 	unix_time := time.Unix(timestamp.GetSeconds(), int64(timestamp.GetNanos()))
 	ACert.Timestamp = unix_time.String()
 	jsonResp = "{\"Init_timestamp\":\"" + unix_time.String() + "\"}"
 	fmt.Printf("Query Response:%s\n", jsonResp)
-
-	// chid := stub.GetChannelID()
-	// ACert.chID = chid
-	// jsonResp = "{\"Init_chid\":\"" + ACert.chID + "\"}"
-	// fmt.Printf("Query Response:%s\n", jsonResp)
 
 	ACertValByte, _ := json.Marshal(ACert)
 	// Write the state to the ledger
@@ -97,9 +90,6 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	} else if function == "query" {
 		// the old "Query" is now implemtned in invoke
 		return t.query(stub, args)
-		// } else if function == "getinfo" {
-		// 	// the old "Query" is now implemtned in invoke
-		// 	return t.getinfo(stub, args)
 	} else if function == "verify" {
 		// the old "Query" is now implemtned in invoke
 		return t.verify(stub, args)
@@ -193,12 +183,7 @@ func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface, args []string)
 		jsonResp := "{\"Error\":\"Nil amount for " + ACert.Token + "\"}"
 		return shim.Error(jsonResp)
 	}
-
-	// timestamp, _ := stub.GetTxTimestamp()
-	// unix_time := time.Unix(timestamp.GetSeconds(), int64(timestamp.GetNanos()))
-	// ACert.Timestamp = unix_time.String()
-	// jsonResp := "{\"Query_timestamp\":\"" + ACert.Timestamp + "\"}"
-	// fmt.Printf("Query Response2:%s\n", jsonResp)
+	
 	jsonResp := "{\"query_chid\":\"" + ACert.ChID + "\"}"
 	fmt.Printf("Query Response:%s\n", jsonResp)
 
@@ -210,7 +195,7 @@ func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface, args []string)
 func (t *SimpleChaincode) verify(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
 	var err error
-	// str := "func exp3(private a):LF\tb = a * aLF\tc = a * bLF\treturn cLFLFfunc main(private s0, public s1):LF\ts3 = exp3(s0)LF\ts4 = s3 + s0LF\ts5 = s4 + 5LF\tequals(s1, s5)LF\tout = 1 * 1"
+	
 	ACert := ACertInfo{}
 	ACert.Token = args[0]
 
